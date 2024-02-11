@@ -17,7 +17,7 @@ import {
 import { ActiveElement } from '@/types/type';
 import { useMutation, useRedo, useStorage, useUndo } from '@/liveblocks.config';
 import { defaultNavElement } from '@/constants';
-import { handleDelete } from '@/lib/key-events';
+import { handleDelete, handleKeyDown } from '@/lib/key-events';
 
 export default function Page() {
   const undo = useUndo();
@@ -27,7 +27,7 @@ export default function Page() {
   const fabricRef = useRef<fabric.Canvas | null>(null);
   const isDrawing = useRef(false);
   const shapeRef = useRef<fabric.Object | null>(null);
-  const selectedShapeRef = useRef<string | null>('rectangle');
+  const selectedShapeRef = useRef<string | null>(null);
 
   const activeObjectRef = useRef<fabric.Object | null>(null);
 
@@ -90,7 +90,7 @@ export default function Page() {
   useEffect(() => {
     const canvas = initializeFabric({ canvasRef, fabricRef });
 
-    canvas.on('mouse:down', (options) => {
+    canvas.on('mouse:down', (options: any) => {
       handleCanvasMouseDown({
         options,
         canvas,
@@ -100,7 +100,7 @@ export default function Page() {
       });
     });
 
-    canvas.on('mouse:up', (options) => {
+    canvas.on('mouse:up', () => {
       handleCanvasMouseUp({
         canvas,
         isDrawing,
@@ -112,7 +112,7 @@ export default function Page() {
       });
     });
 
-    canvas.on('mouse:move', (options) => {
+    canvas.on('mouse:move', (options: any) => {
       handleCanvaseMouseMove({
         options,
         canvas,
@@ -123,7 +123,7 @@ export default function Page() {
       });
     });
 
-    canvas.on('object:modified', (options) => {
+    canvas.on('object:modified', (options: any) => {
       handleCanvasObjectModified({
         options,
         syncShapeInStorage,
@@ -131,7 +131,18 @@ export default function Page() {
     });
 
     window.addEventListener('resize', () => {
-      handleResize({ fabricRef });
+      handleResize({ canvas: fabricRef.current });
+    });
+
+    window.addEventListener('keydown', (e: any) => {
+      handleKeyDown({
+        e,
+        canvas: fabricRef.current,
+        undo,
+        redo,
+        syncShapeInStorage,
+        deleteShapeFromStorage,
+      });
     });
 
     return () => {
