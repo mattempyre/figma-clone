@@ -1,0 +1,10 @@
+{
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascript",
+    "typescript": "typescript",
+    "html": "HTML"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  }
+}
