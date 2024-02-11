@@ -1,37 +1,37 @@
-import jsPDF from "jspdf";
-import { twMerge } from "tailwind-merge";
-import { type ClassValue, clsx } from "clsx";
+// import jsPDF from "jspdf";
+import { twMerge } from 'tailwind-merge';
+import { type ClassValue, clsx } from 'clsx';
 
 const adjectives = [
-  "Happy",
-  "Creative",
-  "Energetic",
-  "Lively",
-  "Dynamic",
-  "Radiant",
-  "Joyful",
-  "Vibrant",
-  "Cheerful",
-  "Sunny",
-  "Sparkling",
-  "Bright",
-  "Shining",
+  'Happy',
+  'Creative',
+  'Energetic',
+  'Lively',
+  'Dynamic',
+  'Radiant',
+  'Joyful',
+  'Vibrant',
+  'Cheerful',
+  'Sunny',
+  'Sparkling',
+  'Bright',
+  'Shining',
 ];
 
 const animals = [
-  "Dolphin",
-  "Tiger",
-  "Elephant",
-  "Penguin",
-  "Kangaroo",
-  "Panther",
-  "Lion",
-  "Cheetah",
-  "Giraffe",
-  "Hippopotamus",
-  "Monkey",
-  "Panda",
-  "Crocodile",
+  'Dolphin',
+  'Tiger',
+  'Elephant',
+  'Penguin',
+  'Kangaroo',
+  'Panther',
+  'Lion',
+  'Cheetah',
+  'Giraffe',
+  'Hippopotamus',
+  'Monkey',
+  'Panda',
+  'Crocodile',
 ];
 
 export function cn(...inputs: ClassValue[]) {
@@ -48,74 +48,74 @@ export function generateRandomName(): string {
 
 export const getShapeInfo = (shapeType: string) => {
   switch (shapeType) {
-    case "rect":
+    case 'rect':
       return {
-        icon: "/assets/rectangle.svg",
-        name: "Rectangle",
+        icon: '/assets/rectangle.svg',
+        name: 'Rectangle',
       };
 
-    case "circle":
+    case 'circle':
       return {
-        icon: "/assets/circle.svg",
-        name: "Circle",
+        icon: '/assets/circle.svg',
+        name: 'Circle',
       };
 
-    case "triangle":
+    case 'triangle':
       return {
-        icon: "/assets/triangle.svg",
-        name: "Triangle",
+        icon: '/assets/triangle.svg',
+        name: 'Triangle',
       };
 
-    case "line":
+    case 'line':
       return {
-        icon: "/assets/line.svg",
-        name: "Line",
+        icon: '/assets/line.svg',
+        name: 'Line',
       };
 
-    case "i-text":
+    case 'i-text':
       return {
-        icon: "/assets/text.svg",
-        name: "Text",
+        icon: '/assets/text.svg',
+        name: 'Text',
       };
 
-    case "image":
+    case 'image':
       return {
-        icon: "/assets/image.svg",
-        name: "Image",
+        icon: '/assets/image.svg',
+        name: 'Image',
       };
 
-    case "freeform":
+    case 'freeform':
       return {
-        icon: "/assets/freeform.svg",
-        name: "Free Drawing",
+        icon: '/assets/freeform.svg',
+        name: 'Free Drawing',
       };
 
     default:
       return {
-        icon: "/assets/rectangle.svg",
+        icon: '/assets/rectangle.svg',
         name: shapeType,
       };
   }
 };
 
 export const exportToPdf = () => {
-  const canvas = document.querySelector("canvas");
+  const canvas = document.querySelector('canvas');
 
   if (!canvas) return;
 
   // use jspdf
-  const doc = new jsPDF({
-    orientation: "landscape",
-    unit: "px",
-    format: [canvas.width, canvas.height],
-  });
+  // const doc = new jsPDF({
+  //   orientation: 'landscape',
+  //   unit: 'px',
+  //   format: [canvas.width, canvas.height],
+  // });
 
   // get the canvas data url
   const data = canvas.toDataURL();
 
-  // add the image to the pdf
-  doc.addImage(data, "PNG", 0, 0, canvas.width, canvas.height);
+  // // add the image to the pdf
+  // doc.addImage(data, 'PNG', 0, 0, canvas.width, canvas.height);
 
-  // download the pdf
-  doc.save("canvas.pdf");
+  // // download the pdf
+  // doc.save('canvas.pdf');
 };
